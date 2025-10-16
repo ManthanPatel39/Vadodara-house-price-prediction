@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>House Price Predictor</title>
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/roomhiveicon.png') }}" />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwHw" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="main-div" id="main-div">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#"><img
+                        src="{{ url_for('static', filename='images/roomhive3.png') }}" class="logo"></a>
+            </div>
+        </nav>
+
+        <header class="masthead text-center text-white" style="height: 100px; background-color: #007bff;"></header>
+
+        <section class="py-5 mt-5">
+            <div id="main" class="container">
+                
+                <form class="well form-horizontal" action="{{ url_for('predict_api')}}" method="post" id="prediction_form">
+                    <fieldset>
+                        <legend>
+                            <center>
+                                <h2><b>VADODARA HOUSE PRICE ESTIMATOR</b></h2>
+                            </center>
+                        </legend><br>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">House Type<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 selectContainer">
+                                <div class="content input-group">
+                                    <select name="h_type" class="form-control selectpicker" data-live-search="true" required>
+                                        <option data-tokens="" class="content" value="">Select House Type</option>
+                                        <option data-tokens="Apartment" class="content" value="0">Apartment</option>
+                                        <option data-tokens="Duplex" class="content" value="1">Duplex</option>
+                                        <option data-tokens="Pent House" class="content" value="2">Pent House</option>
+                                        <option data-tokens="Tenament" class="content" value="3">Tenament</option>
+                                        <option data-tokens="Triplex" class="content" value="4">Triplex</option>
+                                        <option data-tokens="Villa" class="content" value="5">Villa</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">Location<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 selectContainer">
+                                <div class="content input-group">
+                                    <select name="location" class="form-control selectpicker" data-live-search="true" required>
+                                        <option data-tokens="" class="content" value="">Select Location</option>
+                                        <option data-tokens="Ajwa Road" class="content" value="Ajwa Road">Ajwa Road</option>
+                                        <option data-tokens="Akota" class="content" value="Akota">Akota</option>
+                                        <option data-tokens="Alkapuri" class="content" value="Alkapuri">Alkapuri</option>
+                                        <option data-tokens="Atladra" class="content" value="Atladra">Atladra</option>
+                                        <option data-tokens="Bhayli" class="content" value="Bhayli">Bhayli</option>
+                                        <option data-tokens="Chhani" class="content" value="Chhani">Chhani</option>
+                                        <option data-tokens="Fatehgunj" class="content" value="Fatehgunj">Fatehgunj</option>
+                                        <option data-tokens="Gorwa" class="content" value="Gorwa">Gorwa</option>
+                                        <option data-tokens="Gotri" class="content" value="Gotri">Gotri</option>
+                                        <option data-tokens="Harni" class="content" value="Harni">Harni</option>
+                                        <option data-tokens="Karelibaug" class="content" value="Karelibaug">Karelibaug</option>
+                                        <option data-tokens="Khodiyar Nagar" class="content" value="Khodiyar Nagar">Khodiyar Nagar</option>
+                                        <option data-tokens="Laxmipura" class="content" value="Laxmipura">Laxmipura</option>
+                                        <option data-tokens="Madhav Pura" class="content" value="Madhav Pura">Madhav Pura</option>
+                                        <option data-tokens="Mandvi" class="content" value="Mandvi">Mandvi</option>
+                                        <option data-tokens="Maneja" class="content" value="Maneja">Maneja</option>
+                                        <option data-tokens="Manjalpur" class="content" value="Manjalpur">Manjalpur</option>
+                                        <option data-tokens="Navapura" class="content" value="Navapura">Navapura</option>
+                                        <option data-tokens="New Alkapuri" class="content" value="New Alkapuri">New Alkapuri</option>
+                                        <option data-tokens="New Karelibaugh" class="content" value="New Karelibaugh">New Karelibaugh</option>
+                                        <option data-tokens="New Sama" class="content" value="New Sama">New Sama</option>
+                                        <option data-tokens="New VIP Road" class="content" value="New VIP Road">New VIP Road</option>
+                                        <option data-tokens="Sama" class="content" value="Sama">Sama</option>
+                                        <option data-tokens="Sayajipura" class="content" value="Sayajipura">Sayajipura</option>
+                                        <option data-tokens="Soma Talav" class="content" value="Soma Talav">Soma Talav</option>
+                                        <option data-tokens="Vasant Vihar" class="content" value="Vasant Vihar">Vasant Vihar</option>
+                                        <option data-tokens="Vasna Road" class="content" value="Vasna Road">Vasna Road</option>
+                                        <option data-tokens="Vasna-Bhayli Road" class="content" value="Vasna-Bhayli Road">Vasna-Bhayli Road</option>
+                                        <option data-tokens="Waghodia Road" class="content" value="Waghodia Road">Waghodia Road</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">Size (BHK)<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 selectContainer">
+                                <div class="content input-group">
+                                    <select name="size" class="form-control selectpicker" data-live-search="true" required>
+                                        <option data-tokens="" class="content" value="">Select Size</option>
+                                        <option data-tokens="1 BHK" class="content" value="1">1 BHK</option>
+                                        <option data-tokens="2 BHK" class="content" value="2">2 BHK</option>
+                                        <option data-tokens="3 BHK" class="content" value="3">3 BHK</option>
+                                        <option data-tokens="4 BHK" class="content" value="4">4 BHK</option>
+                                        <option data-tokens="5 BHK" class="content" value="5">5 BHK</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">Bathroom<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="content input-group">
+                                    <input name="bath" placeholder="Total bathrooms" class="content form-control" type="number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">Balcony<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="content input-group">
+                                    <input name="balcony" placeholder="Total balcony" class="content form-control" type="number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center form-group">
+                            <label class="col-md-2 control-label">Area Size (sqft)<span style="color: red;">*</span>:</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="content input-group">
+                                    <input name="total_sqft" placeholder="Total sqft." class="content form-control" type="number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content center">
+                            <span class="col-md-6" style="color: red;">*All Required</span>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="content center form-group">
+                        <div class="submit col-md-2"><br>
+                            <button type="submit" class="content btn btn-lg btn-primary">PREDICT PRICE</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </section>
+        
+        <article>
+            <div class="content center">
+                <h3>{{ prediction_text }}</h3>
+            </div>
+        </article>
+        
+        <br>
+        
+        <footer>
+            <div class="container-fluid bg-dark py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center text-white">
+                            <p class="mb-0">© 2025 House Price Predictor Project. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+<a id="button"></a>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</html>
